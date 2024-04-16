@@ -23,8 +23,9 @@ for review in reviews:
     print(review)
 
 ```
+## Output
 
-```json
+```python
 {'Date': '2022-02-16', 'Author': 'joyce francis', 'Body': 'I visited the Farnborough CR branch and was served by a young lady called Anna who was patient and friendly and also solved a huge problem for me...  great response... \nI would suggest when you visit ask for this young lady.. great customer service...\nOld Black Lady !', 'Heading': 'I visited the Farnborough CR branch and…', 'Rating': 5, 'Location': 'GB'}
 {'Date': '2022-07-07', 'Author': 'Marlie Anderson', 'Body': 'Fast response times and excellent client service. I would be delighted to work with them again.', 'Heading': 'Fast response times and excellent…', 'Rating': 5, 'Location': 'US'}
 {'Date': '2021-02-07', 'Author': 'JefryMW', 'Body': 'Good gooodljfj', 'Heading': 'Good gooodljfj', 'Rating': 5, 'Location': 'CZ'}
