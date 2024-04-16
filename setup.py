@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='trustpilot_scraper',
-    version='0.8',
+    version='0.10',
     packages=find_packages(),
     install_requires=[
         'requests',
@@ -61,21 +61,21 @@ Dependencies
 - `beautifulsoup4`: For parsing HTML content.
 - `pandas`: For data manipulation.
 
-For more information and documentation, please visit the GitHub repository: https://github.com/irfanalidv/trustpilot-scraper.
+For more information and documentation, please visit the GitHub repository: https://github.com/irfanalidv/trustpilot_scraper.
 
     ''',
     author='Md Irfan Ali',
     author_email='irfanali29@hotmail.com',
-    url='https://github.com/irfanalidv/trustpilot-scraper',
+    url='https://github.com/irfanalidv/trustpilot_scraper',
     license='MIT',  # Add your license here
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
     ],
 )
