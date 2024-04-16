@@ -4,9 +4,9 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import time
+import pandas as pd
 
 def get_reviews_from_page(url):
-    """Retrieve reviews from a Trustpilot page."""
     try:
         req = requests.get(url, headers={"User-Agent": "Mozilla/5.0"})
         req.raise_for_status()  # Raise an error for bad status codes
@@ -16,11 +16,9 @@ def get_reviews_from_page(url):
         reviews_raw = json.loads(reviews_raw)
         return reviews_raw["props"]["pageProps"]["reviews"]
     except (requests.RequestException, json.JSONDecodeError, AttributeError) as e:
-        logging.error(f"Error scraping {url}: {e}")
         return []
 
-def scrape_trustpilot_reviews(base_url: str):
-    """Scrape Trustpilot reviews from the provided base URL."""
+def trustpilot_scraper(base_url: str):
     reviews_data = []
 
     page_number = 1
