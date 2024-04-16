@@ -4,11 +4,12 @@ from setuptools import setup, find_packages
 
 setup(
     name='trustpilot_scraper',
-    version='0.4',
+    version='0.5',
     packages=find_packages(),
     install_requires=[
         'requests',
         'beautifulsoup4',
+        'pandas'
         # Add any other dependencies here
     ],
     description='A Python library for scraping Trustpilot reviews.',

@@ -53,7 +53,9 @@ for review in reviews:
 
 - `requests`: For making HTTP requests.
 - `beautifulsoup4`: For parsing HTML content.
+- `pandas`: For data manipulation.
 - Any other dependencies are automatically installed via pip during package installation.
+
 
 ## Contributing
 
