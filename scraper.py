@@ -18,7 +18,7 @@ def get_reviews_from_page(url):
     except (requests.RequestException, json.JSONDecodeError, AttributeError) as e:
         return []
 
-def trustpilot_scraper(base_url: str):
+def scrape_trustpilot_reviews(base_url: str):
     reviews_data = []
 
     page_number = 1
