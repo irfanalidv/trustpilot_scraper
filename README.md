@@ -1,13 +1,13 @@
 # Trustpilot Scraper
 
-The `trustpilot_scraper` library is a Python package designed for scraping Trustpilot reviews. It provides functions to retrieve Trustpilot reviews from a given Trustpilot page URL.
+The `trustpilot-scraper` library is a Python package designed for scraping Trustpilot reviews. It provides functions to retrieve Trustpilot reviews from a given Trustpilot page URL.
 
 ## Installation
 
-You can install `trustpilot_scraper` via pip:
+You can install `trustpilot-scraper` via pip:
 
 ```bash
-pip install trustpilot_scraper
+pip install trustpilot-scraper
 ```
 
 ## Usage
