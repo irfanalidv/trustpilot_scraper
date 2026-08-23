@@ -17,6 +17,12 @@ You can install `trustpilot-scraper` via pip:
 pip install trustpilot-scraper
 ```
 
+The scraper uses Playwright and Chromium. After installing the package, install the Chromium browser:
+
+```bash
+playwright install chromium
+```
+
 ## Usage
 
 ```python
@@ -61,4 +67,5 @@ for review in reviews:
 - `requests`: For making HTTP requests.
 - `beautifulsoup4`: For parsing HTML content.
 - `pandas`: For data manipulation.
+- `playwright`: For browser automation.
 - Any other dependencies are automatically installed via pip during package installation.

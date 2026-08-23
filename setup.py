@@ -7,8 +7,8 @@ setup(
     install_requires=[
         'requests',
         'beautifulsoup4',
-        'pandas'
-        # Add any other dependencies here
+        'pandas',
+        'playwright'
     ],
     description='A Python library for scraping Trustpilot reviews.',
     long_description='''
@@ -26,6 +26,12 @@ You can install trustpilot-scraper via pip:
 
     pip install trustpilot-scraper
 
+After installing the package, install the Chromium browser required by Playwright:
+
+.. code-block:: bash
+
+    playwright install chromium
+   
 Usage
 -----
 
@@ -60,6 +66,7 @@ Dependencies
 - `requests`: For making HTTP requests.
 - `beautifulsoup4`: For parsing HTML content.
 - `pandas`: For data manipulation.
+- `playwright`: For browser automation.
 
 For more information and documentation, please visit the GitHub repository: https://github.com/irfanalidv/trustpilot_scraper.
 
