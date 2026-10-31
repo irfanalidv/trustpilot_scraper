@@ -8,8 +8,10 @@ scraping the visual markup, which is far more stable across redesigns.
 from __future__ import annotations
 
 import json
+import logging
+import re
 import time
-from collections.abc import Iterator
+from collections.abc import Iterator, Mapping
 from typing import Any
 from urllib.parse import urlparse
 
@@ -41,13 +43,35 @@ DEFAULT_HEADERS: dict[str, str] = {
 
 _CHALLENGE_MARKERS = ("Verifying Connection", "awswaf.com", "challenge.js")
 
+# "trustpilot" followed by a short public suffix: trustpilot.com, uk.trustpilot.com,
+# trustpilot.co.uk. Rejects look-alikes such as nottrustpilot.com or trustpilot.example.org.
+_TRUSTPILOT_HOST = re.compile(r"^(?:[a-z0-9-]+\.)*trustpilot(?:\.[a-z]{2,3}){1,2}$")
+
+logger = logging.getLogger(__name__)
+
 
 class TrustpilotError(RuntimeError):
     """Base class for all errors raised by this package."""
 
 
 class TrustpilotBlockedError(TrustpilotError):
-    """Trustpilot refused the request (HTTP 403/429 or a bot-verification page)."""
+    """Trustpilot refused the request (HTTP 403/429 or a bot-verification page).
+
+    Attributes:
+        status_code: The HTTP status, or ``None`` for a verification page served with 200.
+        retry_after: Seconds from a numeric ``Retry-After`` header, if Trustpilot sent one.
+    """
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        status_code: int | None = None,
+        retry_after: float | None = None,
+    ) -> None:
+        super().__init__(message)
+        self.status_code = status_code
+        self.retry_after = retry_after
 
 
 class TrustpilotParseError(TrustpilotError):
@@ -68,7 +92,8 @@ def normalize_url(company: str) -> str:
         else:
             return f"https://www.trustpilot.com/review/{company.strip('/')}"
     parsed = urlparse(company)
-    if "trustpilot." not in parsed.netloc:
+    host = (parsed.hostname or "").lower()
+    if parsed.scheme not in ("http", "https") or not _TRUSTPILOT_HOST.match(host):
         raise ValueError(f"not a Trustpilot URL: {company!r}")
     return f"{parsed.scheme}://{parsed.netloc}{parsed.path.rstrip('/')}"
 
@@ -130,16 +155,44 @@ def _total_pages(html_data: dict[str, Any]) -> int | None:
     return total if isinstance(total, int) else None
 
 
+def _request_headers(session: requests.Session | None) -> dict[str, str]:
+    """Default headers, minus any the caller deliberately set on their ``session``.
+
+    ``requests`` gives every session a ``python-requests`` User-Agent and ``Accept: */*``;
+    those generic values are replaced, but a header you changed yourself is left alone.
+    """
+    headers = dict(DEFAULT_HEADERS)
+    session_headers = getattr(session, "headers", None)
+    if not isinstance(session_headers, Mapping):
+        return headers
+    generic = requests.utils.default_headers()
+    customised = {
+        name.lower() for name, value in session_headers.items() if value != generic.get(name)
+    }
+    return {name: value for name, value in headers.items() if name.lower() not in customised}
+
+
+def _retry_after(resp: Any) -> float | None:
+    value = (getattr(resp, "headers", None) or {}).get("Retry-After")
+    try:
+        return float(value) if value is not None else None
+    except (TypeError, ValueError):
+        return None  # HTTP-date form; not parsed
+
+
 def _fetch(url: str, session: requests.Session | None, timeout: float) -> str:
     getter = session.get if session is not None else requests.get
+    logger.debug("GET %s", url)
     try:
-        resp = getter(url, headers=DEFAULT_HEADERS, timeout=timeout)
+        resp = getter(url, headers=_request_headers(session), timeout=timeout)
     except requests.RequestException as exc:
         raise TrustpilotError(f"request to {url} failed: {exc}") from exc
     if resp.status_code in (403, 429):
         raise TrustpilotBlockedError(
             f"Trustpilot blocked the request to {url} (HTTP {resp.status_code}). "
-            "It may be rate-limiting or showing a bot-verification page."
+            "It may be rate-limiting or showing a bot-verification page.",
+            status_code=resp.status_code,
+            retry_after=_retry_after(resp),
         )
     if resp.status_code == 404:
         raise TrustpilotError(f"page not found: {url}")
@@ -240,6 +293,7 @@ def iter_trustpilot_reviews(
         if total is None:
             total = _total_pages(data)
         reviews = _page_props(data).get("reviews") or []
+        logger.debug("page %d: %d reviews (total pages: %s)", page, len(reviews), total)
         if not reviews:
             return
         for review in reviews:

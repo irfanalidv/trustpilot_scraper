@@ -18,7 +18,7 @@ from .scraper import (
 try:
     __version__ = version("trustpilot_scraper")
 except PackageNotFoundError:  # pragma: no cover - running from a source checkout
-    __version__ = "0.0.0"
+    __version__ = "1.1.0"
 
 __all__ = [
     "TrustpilotBlockedError",

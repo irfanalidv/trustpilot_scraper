@@ -40,9 +40,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         description="Scrape public Trustpilot reviews for a company.",
     )
     parser.add_argument("company", help="company domain (www.example.com) or Trustpilot URL")
-    parser.add_argument("--max-pages", type=int, default=1, help="pages to fetch (default: 1)")
+    pages = parser.add_mutually_exclusive_group()
+    pages.add_argument("--max-pages", type=int, default=1, help="pages to fetch (default: 1)")
+    pages.add_argument("--all-pages", action="store_true", help="fetch every page (mind the delay)")
     parser.add_argument(
         "--delay", type=float, default=2.0, help="seconds between requests (default: 2)"
+    )
+    parser.add_argument(
+        "--timeout", type=float, default=30.0, help="per-request timeout in seconds (default: 30)"
     )
     parser.add_argument("--extended", action="store_true", help="include extra review fields")
     parser.add_argument(
@@ -53,7 +58,11 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     try:
         reviews = scrape_trustpilot_reviews(
-            args.company, max_pages=args.max_pages, delay=args.delay, extended=args.extended
+            args.company,
+            max_pages=None if args.all_pages else args.max_pages,
+            delay=args.delay,
+            extended=args.extended,
+            timeout=args.timeout,
         )
     except (TrustpilotError, ValueError) as exc:
         print(f"error: {exc}", file=sys.stderr)
