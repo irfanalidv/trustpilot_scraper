@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "trustpilot_scraper"
+abstract: "Scrape public Trustpilot company reviews into Python dicts, CSV or JSON."
+authors:
+  - family-names: Ali
+    given-names: Irfan
+version: "1.0.0"
+date-released: "2026-10-31"
+license: MIT
+repository-code: "https://github.com/irfanalidv/trustpilot_scraper"
+url: "https://pypi.org/project/trustpilot_scraper/"

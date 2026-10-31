@@ -1,64 +1,157 @@
-[![GitHub license](https://img.shields.io/github/license/irfanalidv/trustpilot_scraper)](https://github.com/irfanalidv/trustpilot_scraper/blob/main/LICENSE)
-[![Python version](https://img.shields.io/badge/python-3.7%20%7C%203.8%20%7C%203.9%20%7C%203.10%20%7C%203.11-blue.svg)](https://pypi.org/project/trustpilot-scraper/)
-[![PyPI](https://img.shields.io/pypi/v/trustpilot-scraper)](https://pypi.org/project/trustpilot-scraper/)
-[![Downloads](https://static.pepy.tech/badge/trustpilot-scraper)](https://pepy.tech/project/trustpilot-scraper)
+<div align="center">
 
-# Trustpilot Scraper
+# trustpilot-scraper
 
-The `trustpilot-scraper` library is a Python package designed for scraping Trustpilot reviews. It provides functions to retrieve Trustpilot reviews from a given Trustpilot page URL.
+**Turn a company's public Trustpilot reviews into clean Python dicts, CSV or JSON, in one call.**
 
-This Python library enables businesses to scrape Trustpilot reviews for market analysis, sentiment analysis, and competitor benchmarking. It empowers businesses to gain insights into customer feedback, improve products/services, and enhance their online reputation.
+[![PyPI](https://img.shields.io/pypi/v/trustpilot_scraper?color=3fb950&label=PyPI)](https://pypi.org/project/trustpilot_scraper/)
+[![Python](https://img.shields.io/pypi/pyversions/trustpilot_scraper)](https://pypi.org/project/trustpilot_scraper/)
+[![Tests](https://github.com/irfanalidv/trustpilot_scraper/actions/workflows/tests.yml/badge.svg)](https://github.com/irfanalidv/trustpilot_scraper/actions/workflows/tests.yml)
+[![Downloads](https://static.pepy.tech/badge/trustpilot_scraper)](https://pepy.tech/project/trustpilot_scraper)
+[![License: MIT](https://img.shields.io/github/license/irfanalidv/trustpilot_scraper)](https://github.com/irfanalidv/trustpilot_scraper/blob/main/LICENSE)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-## Installation
+</div>
 
-You can install `trustpilot-scraper` via pip:
+The `trustpilot_scraper` library is a Python package for scraping Trustpilot reviews. Give it a
+Trustpilot review page (or just the company's domain) and it returns every review as a dictionary.
 
-```bash
-pip install trustpilot-scraper
-```
+Businesses can use it to collect Trustpilot reviews for market analysis, sentiment analysis and
+competitor benchmarking, and to learn from customer feedback to improve products, services and
+online reputation.
 
-## Usage
-
-```python
-from trustpilot_scraper.scraper import scrape_trustpilot_reviews
-
-base_url = 'https://www.trustpilot.com/review/example.com'
-
-reviews = scrape_trustpilot_reviews(base_url)
-
-for review in reviews:
-    print(review)
-
-```
-## Output
-
-```python
-{'Date': '2022-02-16', 'Author': 'joyce francis', 'Body': 'I visited the Farnborough CR branch and was served by a young lady called Anna who was patient and friendly and also solved a huge problem for me...  great response... \nI would suggest when you visit ask for this young lady.. great customer service...\nOld Black Lady !', 'Heading': 'I visited the Farnborough CR branch and…', 'Rating': 5, 'Location': 'GB'}
-{'Date': '2022-07-07', 'Author': 'Marlie Anderson', 'Body': 'Fast response times and excellent client service. I would be delighted to work with them again.', 'Heading': 'Fast response times and excellent…', 'Rating': 5, 'Location': 'US'}
-{'Date': '2021-02-07', 'Author': 'JefryMW', 'Body': 'Good gooodljfj', 'Heading': 'Good gooodljfj', 'Rating': 5, 'Location': 'CZ'}
-{'Date': '2021-04-27', 'Author': 'torti', 'Body': 'No Company contact exists. Self here fake trusts. No damage on parcels? They dont send parcels maybe system works but rest of this company that noone know who it is isnt serious.\nMake a imressum contact company name where the companys home adress etc.', 'Heading': 'No Company contact exists', 'Rating': 1, 'Location': 'DE'}
-{'Date': '2021-01-21', 'Author': 'Aslak Borgenvik', 'Body': "Always punctual. Never any damage on parcels. Cheap, fast and trustworthy, I can't wait for a bigger expand on clienta.", 'Heading': 'Always punctual', 'Rating': 5, 'Location': 'NO'}
-{'Date': '2022-01-05', 'Author': 'peter', 'Body': "i decided to buy a draw fridge 2/1/22 took it home installed it unit wouldn't cool faulty cooling system took it back next day, day 2 unit replaced and installed and tested while at the 4x4 centre all working got home filled fridge all good, day 3 fridge not cold error code E3 took it back and put it on test, day 4 got phone call cooling system faulty given refund now back to my old system. really wanted draw fridge as it fitted and looked good and took up less room", 'Heading': 'disappointed draw fridge', 'Rating': 2, 'Location': 'AU'}
-{'Date': '2022-03-05', 'Author': 'Jx', 'Body': 'Spam, unsolicited e-mail without any option to unsubscribe.', 'Heading': 'Spam', 'Rating': 1, 'Location': 'PT'}
-{'Date': '2021-10-29', 'Author': 'Bill Kelly', 'Body': 'Hooked  it up to my Companion 70 amp lithium power pack that I use to run my Engels 45 litre fridge. Does a great job. More power gong in than  coming out. Make sure you don’t use the regulator supplied because the companion power pack has its own regulator.', 'Heading': '200 watt solar blanket.', 'Rating': 5, 'Location': 'AU'}
-{'Date': '2021-09-17', 'Author': 'Cristian Gabriel Mazzulla', 'Body': "Fulfills its function 100% \nit's just an example page xD", 'Heading': 'It is perfect!', 'Rating': 5, 'Location': 'AR'}
-{'Date': '2022-06-19', 'Author': 'A TrustPilot User', 'Body': 'Great Site! This is the Example Domain.', 'Heading': 'Great Site', 'Rating': 5, 'Location': 'CA'}
-{'Date': '2021-12-03', 'Author': 'ILikeTasks', 'Body': 'Website fulfils its job', 'Heading': 'example', 'Rating': 5, 'Location': 'US'}
-{'Date': '2022-08-19', 'Author': 'Me', 'Body': '4WD Supa Center High-Def Dash Camera\nI bought this 2 years ago at first it was good it captured everything but after the first month I started Noticing Sun Glitches where the screen would just white out,\nIn the first summer in Victoria it just shut down over 30c it would heat up in the sun and just stop recording\nVery poor quality $45 I payed after 6 month I tossed it in the Bin 1*', 'Heading': '4WD Supa Center High-Def Dash Camera', 'Rating': 1, 'Location': 'AU'}
-{'Date': '2022-10-04', 'Author': 'Kepler', 'Body': 'Fantastic keyboard for the price, for the 1st time using a 60% TKL keyboard and I am adapting quite well, also 1st time using mechanical keys and enjoying a lot these Outemu pro red switches.\nThis Keyboard is solid, well made and it is simple and easy to use. The only downside for me is the lack of control the intensity of the RGB lighting at hardware level.', 'Heading': 'Fantastic keyboard for the price', 'Rating': 4, 'Location': 'PT'}
-{'Date': '2022-04-18', 'Author': 'Snowneeerd', 'Body': 'Picked up a Titan rear drawer. When I got home an opened it, the side was dented. No problems getting it swapped. Got the second one home, this was also dented. Going to ask them to check the third one before I take it. Obvious quality control issues.', 'Heading': 'Two dented Titan rear drawers 4WD Supa Centre', 'Rating': 2, 'Location': 'AU'}
-{'Date': '2022-07-20', 'Author': 'Ankit Verma', 'Body': 'Does my review even count???', 'Heading': 'Does my review even count???', 'Rating': 4, 'Location': 'IN'}
-```
+> **Heads-up (October 2026):** Trustpilot currently puts an AWS WAF bot-verification page in front
+> of its review pages, and plain HTTP clients such as `requests` often get **HTTP 403**. When that
+> happens this library raises `TrustpilotBlockedError` rather than quietly returning an empty list.
+> The library does not try to get around the check. If you are blocked, save the page from your
+> browser and parse it with `parse_reviews_html()` (see [below](#parse-html-you-already-have)). The
+> page's data format was checked against a live page on 2026-10-31.
 
 ## Features
 
-- Scrapes Trustpilot reviews from the provided base URL.
-- Retrieves review data including date, author, body, heading, rating, and location.
-- Handles pagination automatically to scrape all available reviews.
+- Reads the page's embedded `__NEXT_DATA__` JSON instead of brittle CSS selectors.
+- Handles pagination automatically, stopping at the real last page (or at `max_pages`).
+- Retrieves date, author, body, heading, rating and location, and with `extended=True` also the
+  review id, experience date, verification flag, likes, language and the company's reply.
+- Removes duplicate reviews (by review id) and keeps page order.
+- Waits politely between requests (2 s by default) and lets you pass your own `requests.Session`.
+- Raises clear exceptions when something goes wrong: `TrustpilotBlockedError`,
+  `TrustpilotParseError` and `TrustpilotError`.
+- Includes a `trustpilot-scraper` command that writes JSON, JSONL or CSV.
+- Fully typed (`py.typed`) and light: only `requests` and `beautifulsoup4` are required.
 
-## Dependencies
+## Installation
 
-- `requests`: For making HTTP requests.
-- `beautifulsoup4`: For parsing HTML content.
-- `pandas`: For data manipulation.
-- Any other dependencies are automatically installed via pip during package installation.
+```bash
+pip install trustpilot_scraper
+# optional: pandas, for working with results as a DataFrame
+pip install "trustpilot_scraper[pandas]"
+```
+
+Requires Python 3.10+.
+
+## Quick start
+
+```python
+from trustpilot_scraper import scrape_trustpilot_reviews
+
+reviews = scrape_trustpilot_reviews(
+    "https://www.trustpilot.com/review/www.example.com",  # or just "www.example.com"
+    max_pages=2,   # omit to fetch every page
+    delay=2.0,     # seconds between requests
+)
+
+for review in reviews:
+    print(review)
+```
+
+Each review is a dict with the same keys as earlier versions:
+
+```python
+{'Date': '2026-10-29', 'Author': 'Reviewer 1', 'Body': 'Synthetic review body number 1.',
+ 'Heading': 'Synthetic heading 1', 'Rating': 5, 'Location': 'US'}
+```
+
+With `extended=True` each dict also has `ReviewId`, `ExperienceDate`, `Verified`, `Likes`,
+`Language`, `Reply` and `ReplyDate`.
+
+### Parse HTML you already have
+
+```python
+from pathlib import Path
+from trustpilot_scraper import parse_reviews_html, normalize_review
+
+html = Path("amazon_page1.html").read_text(encoding="utf-8")  # saved from your browser
+reviews = [normalize_review(r, extended=True) for r in parse_reviews_html(html)]
+```
+
+### Handle blocking explicitly
+
+```python
+from trustpilot_scraper import scrape_trustpilot_reviews, TrustpilotBlockedError
+
+try:
+    reviews = scrape_trustpilot_reviews("www.example.com", max_pages=1)
+except TrustpilotBlockedError as exc:
+    print("Trustpilot refused the request:", exc)
+```
+
+### Command line
+
+```bash
+trustpilot-scraper www.example.com --max-pages 3 -o reviews.csv
+trustpilot-scraper https://www.trustpilot.com/review/www.example.com --extended -o reviews.jsonl
+trustpilot-scraper www.example.com            # JSON to stdout, first page only
+```
+
+The exit code is `1` and the error goes to stderr when a request is blocked or fails.
+
+## Use cases
+
+- **Sentiment analysis:** feed `Body` and `Rating` into your NLP pipeline.
+- **Competitor benchmarking:** compare rating distributions across companies.
+- **Customer-support QA:** use `extended=True` to see which reviews got a company reply.
+- **Dashboards:** `pandas.DataFrame(reviews)` gives a ready-to-plot table.
+
+## API overview
+
+| Function | Purpose |
+| --- | --- |
+| `scrape_trustpilot_reviews(base_url, *, max_pages=None, delay=2.0, extended=False, session=None, timeout=30.0)` | Fetch all (or `max_pages`) pages and return a list of dicts. |
+| `iter_trustpilot_reviews(...)` | The same, but as a lazy generator that fetches page by page. |
+| `get_reviews_from_page(url, *, session=None, timeout=30.0)` | Fetch one page and return the raw Trustpilot review objects. |
+| `parse_reviews_html(html)` | Pull the raw review objects out of an HTML string. |
+| `parse_next_data(html)` | Return the whole decoded `__NEXT_DATA__` JSON. |
+| `normalize_review(raw, *, extended=False)` | Turn a raw review object into the flat dict shown above. |
+| `normalize_url(company)` | `"www.example.com"` becomes `"https://www.trustpilot.com/review/www.example.com"`. |
+
+Exceptions: `TrustpilotError` (base class), `TrustpilotBlockedError` (HTTP 403/429 or a
+verification page) and `TrustpilotParseError` (the page has no review data).
+
+### Upgrading from 0.x
+
+- `from trustpilot_scraper.scraper import scrape_trustpilot_reviews` still works, and the output
+  keys are unchanged.
+- Version 0.10 on PyPI shipped a wheel without the Python package in it. 1.0.0 fixes the packaging.
+- Errors now raise exceptions instead of returning `[]`.
+- `pandas` is no longer a required dependency.
+
+## Responsible use
+
+Only scrape public pages, keep the request rate low (the default delay is 2 s), and follow
+Trustpilot's terms of use and the data-protection law that applies to you.
+
+## Contributing
+
+Pull requests are welcome. See [CONTRIBUTING.md](https://github.com/irfanalidv/trustpilot_scraper/blob/main/CONTRIBUTING.md).
+
+```bash
+pip install -e ".[dev]"
+ruff check . && ruff format --check . && pytest
+```
+
+The tests run offline against saved HTML fixtures in `tests/fixtures/`.
+
+## License
+
+MIT. See [LICENSE](https://github.com/irfanalidv/trustpilot_scraper/blob/main/LICENSE).
