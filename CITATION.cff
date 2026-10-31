@@ -5,7 +5,7 @@ abstract: "Scrape public Trustpilot company reviews into Python dicts, CSV or JS
 authors:
   - family-names: Ali
     given-names: Irfan
-version: "1.0.0"
+version: "1.1.0"
 date-released: "2026-10-31"
 license: MIT
 repository-code: "https://github.com/irfanalidv/trustpilot_scraper"

@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-31
+
+### Fixed
+- `normalize_url` accepted any host containing `trustpilot.` (for example `nottrustpilot.com`
+  or `trustpilot.example.org`), so a typo could send requests to an unrelated site. Only
+  `trustpilot.<suffix>` hosts and their subdomains over http(s) are accepted now.
+- Headers set on a custom `requests.Session` (such as your own `User-Agent`) were overridden by
+  the library's per-request defaults. Defaults now only fill in headers you did not customise.
+- The module-level `DEFAULT_HEADERS` dict is copied per request instead of being handed to
+  `requests` directly.
+
+### Added
+- `TrustpilotBlockedError.status_code` and `TrustpilotBlockedError.retry_after` (seconds, from a
+  numeric `Retry-After` header).
+- CLI: `--all-pages` and `--timeout`; `python -m trustpilot_scraper` works.
+- DEBUG-level logging of page fetches on the `trustpilot_scraper.scraper` logger.
+- Five examples (four offline on synthetic sample pages, one live) run by the test suite.
+- Tooling: mypy config (passes), broader ruff rules (C4, PTH, RET, PIE), CodeQL, pre-commit,
+  and a 100% coverage gate in CI (60 tests).
+
+### Changed
+- README rewritten around a verified quickstart that falls back to a saved page when blocked.
+
 ## [1.0.0] - 2026-10-31
 
 ### Fixed
