@@ -4,8 +4,17 @@ updates:
     directory: "/"
     schedule:
       interval: monthly
+    # This is a library: keep the declared ranges wide. Only propose a change when a new
+    # release falls outside the allowed range, never just to raise a lower bound.
+    versioning-strategy: increase-if-necessary
     open-pull-requests-limit: 5
+    groups:
+      python-deps:
+        patterns: ["*"]
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
       interval: monthly
+    groups:
+      github-actions:
+        patterns: ["*"]
