@@ -67,7 +67,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     except (TrustpilotError, ValueError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
-    _write(reviews, args.output)
+    try:
+        _write(reviews, args.output)
+    except OSError as exc:
+        print(f"error: cannot write output file: {exc}", file=sys.stderr)
+        return 1
     if args.output and args.output != "-":
         print(f"wrote {len(reviews)} reviews to {args.output}", file=sys.stderr)
     return 0
